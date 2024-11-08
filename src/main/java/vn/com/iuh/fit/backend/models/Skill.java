@@ -1,9 +1,6 @@
 package vn.com.iuh.fit.backend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "skill", schema = "works")
 public class Skill {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "skill_id", nullable = false)
     private Long id;
 
@@ -24,4 +21,6 @@ public class Skill {
 
     @Column(name = "type")
     private Byte type;
+
+
 }

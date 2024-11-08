@@ -34,6 +34,7 @@ public class CandidateController {
         model.addAttribute("candidates", candidatesRepository.findAll());
         return "candidates/candidates";
     }
+
     @GetMapping("/candidates")
     public String showCandidateListPaging(Model model,
                                           @RequestParam("page") Optional<Integer> page,
@@ -47,12 +48,13 @@ public class CandidateController {
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                                                 .boxed()
-                                                 .collect(Collectors.toList());
+                    .boxed()
+                    .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "candidates/candidates-paging";
     }
+
     @RequestMapping("/add-candidate")
     public String showAddCandidateForm(Model model) {
         model.addAttribute("candidate", new Candidate());
@@ -71,5 +73,38 @@ public class CandidateController {
         return "redirect:/candidates";
     }
 
+    @GetMapping("/update-candidates/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Candidate candidate = candidateServices.getCandidateById(id);
+        if (candidate == null) {
+            return "redirect:/candidates";
+        }
+        model.addAttribute("candidate", candidate);
+        return "candidates/update-candidates";
+    }
+
+    @PostMapping("/update-candidates")
+    public String updateCandidate(@ModelAttribute Candidate candidate) {
+        Candidate existingCandidate = candidateServices.getCandidateById(candidate.getId());
+        if (existingCandidate != null) {
+            existingCandidate.setFullName(candidate.getFullName());
+            existingCandidate.setDob(candidate.getDob());
+            existingCandidate.setEmail(candidate.getEmail());
+            existingCandidate.setPhone(candidate.getPhone());
+            if (candidate.getAddress() != null) {
+                existingCandidate.setAddress(candidate.getAddress());
+                addressRepository.save(candidate.getAddress());
+            }
+            candidateServices.updateCandidate(existingCandidate);
+        }
+        return "redirect:/candidates";
+    }
+
+    @GetMapping("/search-candidates")
+    public String searchCandidates(@RequestParam("name") String name, Model model) {
+        List<Candidate> candidates = candidatesService.findByName(name);
+        model.addAttribute("candidates", candidates);
+        return "candidates/candidates";
+    }
 
 }

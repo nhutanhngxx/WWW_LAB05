@@ -10,8 +10,9 @@
         }
 
         div.inline a.active {
-            background-color: #FBD603;
-            border: 1px solid darkred;
+            color: #007bff;
+            font-weight: bold;
+            text-decoration: underline;
         }
     </style>
     <head>
@@ -30,39 +31,58 @@
                 crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
     <body>
-    <h1 class="text-center" style="padding: 20px 0">LIST CANDIDATES</h1>
-    <div class="text-center" >
-        <input class="border px-2 py-1" type="search" placeholder="Tìm kiếm">
-        <button class="border-0 px-5 py-1">Tìm</button>
-    </div>
+    <h1 class="text-center" style="padding: 20px 0">Danh sách tất cả các ứng cử viên</h1>
+    <form th:action="@{/search-candidates}" method="get" class="text-center pb-3">
+        <input class="border px-2 py-1" type="search" name="name" placeholder="Tìm kiếm theo tên" required>
+        <button type="submit" class="border-0 px-4 py-1">Tìm</button>
+        <button class="border-0 px-3 py-1">
+            <a th:href="@{/add-candidate}">Thêm Ứng cử viên mới</a>
+        </button>
+    </form>
+
     <table class="table table-hover">
         <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>Ngày sinh</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
         <tr th:each="candidate, iStat : ${candidatePage.content}"
-            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:style="${iStat.odd}? ''"
             th:alt-title="${iStat.even}? 'even' : 'odd'">
             <td th:text="${candidate.id}"></td>
             <td th:text="${candidate.fullName}"></td>
             <td th:text="${candidate.dob}"></td>
-            <td th:text="${candidate.address}"></td>
+            <td th:text="${candidate.address.street}"></td>
             <td th:text="${candidate.phone}"></td>
             <td th:text="${candidate.email}"></td>
-            <td><a th:href="@{/edit/{id}(id=${candidate.id})}">Edit</a></td>
-            <td><a th:href="@{/delete/{id}(id=${candidate.id})}">Delete</a></td>
+            <td><a th:href="@{/update-candidates/{id}(id=${candidate.id})}">Chỉnh sửa</a></td>
+            <td><a th:href="@{/delete-candidates/{id}(id=${candidate.id})}">Xóa</a></td>
         </tr>
         </tbody>
     </table>
-    <div class="inline" th:if="${candidatePage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/candidates(size=${candidatePage.size}, page=${pageNumber})}"
-           th:text="${pageNumber}"
-           th:class="${pageNumber==candidatePage.number + 1} ? active"></a>
+
+    <div style="padding: 10px 20%; justify-content: center; align-items: center; display: flex">
+        <div class="inline" th:if="${candidatePage.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/candidates(size=${candidatePage.size}, page=${pageNumber})}"
+               th:text="${pageNumber}"
+               th:class="${pageNumber == candidatePage.number + 1} ? active"></a>
+        </div>
     </div>
     <br/> <br><br>
-    <div class="d-flex gap-4">
-        <a class="btn btn-primary" th:href="@{/add-candidate}">Add Candidate</a>
-        <a class="btn btn-secondary" th:href="@{/}">Back</a>
-    </div>
     </body>
 </html>

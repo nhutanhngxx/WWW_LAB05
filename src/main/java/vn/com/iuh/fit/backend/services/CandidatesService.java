@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import vn.com.iuh.fit.backend.models.Candidate;
 import vn.com.iuh.fit.backend.repositories.CandidatesRepository;
 
+import java.util.List;
+
 @Service
 public class CandidatesService {
     @Autowired
@@ -28,4 +30,17 @@ public class CandidatesService {
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         return candidatesRepository.findAll(pageable);
     }
+
+    public Candidate getCandidateById(Long id) {
+        return candidatesRepository.findById(id).get();
+    }
+
+    public void updateCandidate(Candidate candidate) {
+        candidatesRepository.save(candidate);
+    }
+
+    public List<Candidate> findByName(String name) {
+        return candidatesRepository.findByFullNameContainingIgnoreCase(name);
+    }
+
 }

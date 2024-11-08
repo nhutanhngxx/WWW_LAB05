@@ -32,11 +32,6 @@ public class Candidate {
     @JoinColumn(name = "address", nullable = false)
     private Address address;
 
-//    private String street;
-//    private String city;
-//    private Short country;
-//    private String number;
-
     public Candidate(LocalDate dob, String email, String fullName, String phone, Address address) {
         this.dob = dob;
         this.email = email;

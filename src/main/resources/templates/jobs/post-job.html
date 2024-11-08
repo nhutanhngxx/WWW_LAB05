@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Đăng tin tuyển dụng</title>
+    </head>
+    <body>
+        <h2>Đăng tin tuyển dụng mới</h2>
+        <form th:action="@{/jobs/add-job}" method="post">
+            <label>Vị trí công việc:</label>
+            <input type="text" name="jobName" required>
+
+            <label>Mô tả công việc:</label>
+            <textarea name="jobDesc" required></textarea>
+
+            <label>Kỹ năng yêu cầu:</label>
+            <div th:each="skill : ${skills}">
+                <input type="checkbox" name="skillIds" th:value="${skill.id}">
+                <span th:text="${skill.skillName}"></span><br>
+            </div>
+
+            <button type="submit">Đăng tin</button>
+        </form>
+    </body>
+</html>
