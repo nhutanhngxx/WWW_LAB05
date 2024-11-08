@@ -21,7 +21,7 @@ public class JobContronller {
 
     @GetMapping("/new")
     public String showJobForm(Model model) {
-        model.addAttribute("job", new Job());
+        model.addAttribute("jobs", new Job());
         List<Skill> skills = skillService.getAllSkills();
         model.addAttribute("skills", skills);
         return "jobs/add-job";
@@ -34,7 +34,7 @@ public class JobContronller {
     }
 
     @GetMapping("/list")
-    public String listJobs(Model model) {
+    public String showJobs(Model model) {
         List<Job> jobs = jobService.getAllJobs();
         model.addAttribute("jobs", jobs);
         return "jobs/job-list";

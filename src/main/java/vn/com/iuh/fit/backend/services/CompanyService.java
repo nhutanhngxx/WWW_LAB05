@@ -13,4 +13,8 @@ public class CompanyService {
     public void addCompany(Company company) {
         companyRepository.save(company);
     }
+
+    public Company getCompanyById(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
 }

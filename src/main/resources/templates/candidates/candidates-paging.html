@@ -61,18 +61,18 @@
             </tr>
         </thead>
         <tbody>
-        <tr th:each="candidate, iStat : ${candidatePage.content}"
-            th:style="${iStat.odd}? ''"
-            th:alt-title="${iStat.even}? 'even' : 'odd'">
-            <td th:text="${candidate.id}"></td>
-            <td th:text="${candidate.fullName}"></td>
-            <td th:text="${candidate.dob}"></td>
-            <td th:text="${candidate.address.street}"></td>
-            <td th:text="${candidate.phone}"></td>
-            <td th:text="${candidate.email}"></td>
-            <td><a th:href="@{/update-candidates/{id}(id=${candidate.id})}">Chỉnh sửa</a></td>
-            <td><a th:href="@{/delete-candidates/{id}(id=${candidate.id})}">Xóa</a></td>
-        </tr>
+            <tr th:each="candidate, iStat : ${candidatePage.content}"
+                th:style="${iStat.odd}? ''"
+                th:alt-title="${iStat.even}? 'even' : 'odd'">
+                <td th:text="${candidate.id}"></td>
+                <td th:text="${candidate.fullName}"></td>
+                <td th:text="${candidate.dob}"></td>
+                <td th:text="${candidate.address.street}"></td>
+                <td th:text="${candidate.phone}"></td>
+                <td th:text="${candidate.email}"></td>
+                <td><a th:href="@{/update-candidates/{id}(id=${candidate.id})}">Chỉnh sửa</a></td>
+                <td><a th:href="@{/delete-candidates/{id}(id=${candidate.id})}">Xóa</a></td>
+            </tr>
         </tbody>
     </table>
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Danh sách các Công ty</title>
+        <link
+                href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+                rel="stylesheet"
+                integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+                crossorigin="anonymous">
+        <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+    </head>
+
+    <style>
+        body {
+            padding: 10px 20px;
+            font-family: Aptos, sans-serif;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+
+    <body>
+        <h1 class="text-center" style="padding: 20px 0">Danh sách các Công ty</h1>
+        <form th:action="@{/search-companies}" method="get" class="text-center pb-3">
+            <input class="border px-2 py-1" type="search" name="name" placeholder="Tìm kiếm theo tên" required>
+            <button type="submit" class="border-0 px-4 py-1">Tìm</button>
+            <a th:href="@{/add-company}" class="border-0 px-3 py-1 btn btn-link">Thêm Company mới</a>
+        </form>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Company Name</th>
+                <th>About</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website URL</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="company, iStat : ${companies}">
+                <td th:text="${company.id}"></td>
+                <td th:text="${company.compName}"></td>
+                <td th:text="${company.about}"></td>
+                <td th:text="${company.email}"></td>
+                <td th:text="${company.phone}"></td>
+                <td th:text="${company.webUrl}"></td>
+                <td th:text="${company.address.street}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
