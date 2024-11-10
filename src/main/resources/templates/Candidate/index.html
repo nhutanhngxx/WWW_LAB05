@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Trang chủ</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NN"></script>
+        <style>
+            body {
+                font-family: Aptos, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            p {
+                margin: 0;
+            }
+            .hero-section {
+                padding: 60px 0;
+                text-align: center;
+            }
+            .hero-section h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+            }
+            .hero-section p {
+                font-size: 1.25rem;
+                color: #666;
+            }
+        </style>
+    </head>
+
+    <body>
+    <!-- Chưa đăng nhập -->
+    <div th:if="${!isLoggedIn}">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" th:href="@{/user/index}">Trang chủ</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/user/login}">Đăng nhập</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary ms-2" th:href="@{/user/signup}">Đăng ký</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="hero-section">
+            <div class="container">
+                <h1>Bạn tìm kiếm việc làm ?</h1>
+                <p>Chúng tôi sẽ giúp bạn tìm kiếm việc làm một cách dễ dàng và nhanh chóng</p>
+                <a class="btn btn-primary btn-lg mt-3" href="/user/signup">Đăng ký ngay</a>
+            </div>
+        </div>
+    </div>
+    <!-- Đã đăng nhập -->
+    <div th:if="${isLoggedIn}">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid d-flex justify-content-between">
+                    <a class="navbar-brand" href="#">Trang chủ</a>
+                    <form th:action="@{/user/logout}" method="post">
+                        <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <div class="container px-3">
+            <h2 class="py-3">Chào <span th:text="${session.candidate.fullName}"></span>!</h2>
+            <h4 class="pb-3 text-center">TOP CÔNG VIỆC GỢI Ý CHO BẠN</h4>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 d-flex justify-content-center" th:each="job : ${suggestedJobs}">
+                    <div class="job-card border p-3 rounded-3" style="width: 300px">
+                        <h4 th:text="${job.jobName}">Tên công việc</h4>
+                        <p><strong>Vị trí:</strong> <span th:text="${job.jobDesc}">Chưa rõ</span></p>
+                        <p><strong>Công ty:</strong> <span th:text="${job.company.compName}">Tên công ty</span></p>
+                        <a th:href="@{'/jobs/' + ${job.id}}" class="btn btn-primary btn-apply">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
