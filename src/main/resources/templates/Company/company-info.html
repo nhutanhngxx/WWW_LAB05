@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin công ty</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body class="container my-5 w-50">
+<h2 class="text-center pb-2">THÔNG TIN CỦA CÔNG TY</h2>
+<form th:object="${company}" method="post">
+    <div class="mb-1">
+        <label class="form-label">Tên công ty</label>
+        <input type="text" class="form-control" th:field="*{compName}" required>
+    </div>
+    <div class="mb-1">
+        <label class="form-label">Mô tả</label>
+        <input type="text" class="form-control" th:field="*{about}" required>
+    </div>
+    <div class="mb-1 d-flex justify-content-between">
+        <div class="mb-1">
+            <label class="form-label">Số điện thoại</label>
+            <input type="tel" class="form-control" th:field="*{phone}" required>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" required>
+        </div>
+    </div>
+    <div class="mb-1">
+        <label class="form-label">URL Trang web chính thức</label>
+        <input type="url" class="form-control" th:field="*{webUrl}" required>
+    </div>
+    <div class="mb-1 d-flex justify-content-between">
+        <div class="mb-1">
+            <label class="form-label">Số đường/Number</label>
+            <input type="number" class="form-control" th:field="*{address.number}" required>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Đường/Street</label>
+            <input type="text" class="form-control" th:field="*{address.street}" required>
+        </div>
+
+    </div>
+    <div class="mb-1 d-flex justify-content-between">
+        <div class="mb-1">
+            <label class="form-label">Thành phố/City</label>
+            <input type="text" class="form-control" th:field="*{address.city}" required>
+        </div>
+        <div class="mb-1">
+            <label class="form-label">Quốc gia/Country</label>
+            <input type="text" class="form-control" th:field="*{address.country}" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Lưu thay đổi</button>
+</form>
+</body>
+</html>

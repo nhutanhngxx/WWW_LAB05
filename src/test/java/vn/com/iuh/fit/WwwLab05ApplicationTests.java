@@ -9,5 +9,4 @@ class WwwLab05ApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

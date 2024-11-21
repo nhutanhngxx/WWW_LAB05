@@ -1,10 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<!DOCTYPE  html>
+<HTML xmlns:th="http://www.thymeleaf.org" lang="en">
+<HEAD>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang chủ Company</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <style>
+        body {
+            font-family: Aptos, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .hero-section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            color: #666;
+        }
+    </style>
+</HEAD>
+
+<BODY>
+<div th:if="${!isLoggedIn}">
+    <header class="d-">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/company/index}">Trang chủ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" th:href="@{/user/index}">Cá nhân</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/company/login}">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" th:href="@{/company/signup}">Đăng ký</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>Bạn là doanh nghiệp ?</h1>
+            <p>Chúng tôi sẽ giúp bạn tìm kiếm <b>nhân sự</b> một cách dễ dàng và nhanh chóng</p>
+            <a class="btn btn-primary btn-lg mt-3" href="/company/signup">Đăng ký ngay</a>
+        </div>
+        <div class="container-fluid px-5">
+            <h3 class="py-3 pt-4">Danh sách tất cả ứng viên</h3>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày sinh</th>
+                        <th>Địa chỉ</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="candidate, iSat : ${candidates}">
+                        <td th:text="${iSat.index + 1}"></td>
+                        <td th:text="${candidate.fullName}"></td>
+                        <td th:text="${candidate.email}"></td>
+                        <td th:text="${candidate.phone}"></td>
+                        <td th:text="${candidate.dob}"></td>
+                        <td th:text="${candidate.address.number + ' ' + candidate.address.street + ', ' + candidate.address.city}"></td>
+                        <td class="gap-3">
+                            <button class="btn btn-outline-primary">Xem chi tiết</button>
+                            <button class="btn btn-outline-success">Gửi mail</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${isLoggedIn}">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand" href="#">Trang chủ</a>
+                <form th:action="@{/company/logout}" method="post">
+                    <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container px-3">
+        <h2 class="py-3">Chào <span th:text="${session.company.compName}"></span>!</h2>
+        <p>Đây là trang quản lý của bạn</p>
+        <div class="pt-2 gap-5">
+            <a class="btn border" th:href="@{/company/job-postings}">Quản lý tin tuyển dụng</a>
+            <a class="btn border" th:href="@{/company/company-info}">Xem thông tin công ty</a>
+        </div>
+    </div>
+</div>
+</BODY>
+</HTML>

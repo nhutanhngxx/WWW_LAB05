@@ -1,93 +1,143 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Trang chủ</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NN"></script>
-        <style>
-            body {
-                font-family: Aptos, sans-serif;
-                margin: 0;
-                padding: 0;
-            }
-            p {
-                margin: 0;
-            }
-            .hero-section {
-                padding: 60px 0;
-                text-align: center;
-            }
-            .hero-section h1 {
-                font-size: 2.5rem;
-                font-weight: 700;
-            }
-            .hero-section p {
-                font-size: 1.25rem;
-                color: #666;
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trang chủ Người dùng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+    body {
+        font-family: Aptos, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
-    <body>
-    <!-- Chưa đăng nhập -->
-    <div th:if="${!isLoggedIn}">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" th:href="@{/user/index}">Trang chủ</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/user/login}">Đăng nhập</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary ms-2" th:href="@{/user/signup}">Đăng ký</a>
-                            </li>
-                        </ul>
-                    </div>
+    a {
+        text-decoration: none;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .hero-section p {
+        font-size: 1.25rem;
+        color: #666;
+    }
+
+    #backgroundDiv {
+        background-image: url('/img/banner.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+    }
+</style>
+<body>
+<!-- Chưa đăng nhập -->
+<div th:if="${!isLoggedIn}">
+    <header style="position: fixed; right: 0; left: 0; background: transparent">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/user/index}">Trang chủ</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" th:href="@{/company/index}">Doanh nghiệp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/user/login}">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary ms-2" th:href="@{/user/signup}">Đăng ký</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
 
-        <div class="hero-section">
-            <div class="container">
-                <h1>Bạn tìm kiếm việc làm ?</h1>
-                <p>Chúng tôi sẽ giúp bạn tìm kiếm việc làm một cách dễ dàng và nhanh chóng</p>
-                <a class="btn btn-primary btn-lg mt-3" href="/user/signup">Đăng ký ngay</a>
+    <div class="hero-section">
+        <div class="container-fluid d-flex align-items-center" id="backgroundDiv">
+            <div class="d-flex flex-column align-items-start text-start px-5" style="width: 60%">
+                <h1 style="font-weight: bold; font-size: 50px" class="">TÌM MỘT CÔNG VIỆC PHÙ HỢP VỚI ĐAM MÊ CỦA BẠN</h1>
+                <p>Cơ hội được lựa chọn kỹ lưỡng để làm việc tại nhà, từ xa, tự do, toàn thời gian, bán thời gian, hợp đồng và thực tập.</p>
+                <form action="/user/search-results" method="get" class="d-flex gap-2 pt-3 container-fluid p-0 m-0">
+                    <input type="text" name="jobName"
+                           class="form-control border bg-transparent px-2 py-1 w-50"
+                           placeholder="Bạn muốn tìm công việc như thế nào ?">
+                    <button class="btn btn-outline-secondary px-2" type="submit" name="findJob">Tìm việc</button>
+                </form>
             </div>
         </div>
-    </div>
-    <!-- Đã đăng nhập -->
-    <div th:if="${isLoggedIn}">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid d-flex justify-content-between">
-                    <a class="navbar-brand" href="#">Trang chủ</a>
-                    <form th:action="@{/user/logout}" method="post">
-                        <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
-                    </form>
-                </div>
-            </nav>
-        </header>
-        <div class="container px-3">
-            <h2 class="py-3">Chào <span th:text="${session.candidate.fullName}"></span>!</h2>
-            <h4 class="pb-3 text-center">TOP CÔNG VIỆC GỢI Ý CHO BẠN</h4>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4 d-flex justify-content-center" th:each="job : ${suggestedJobs}">
+        <div class="container px-5 pt-3" style="min-height: 100vh">
+            <h1 class="py-5 text-center fw-bold">TẤT CẢ CÔNG VIỆC CÓ SẴN YÊU CẦU KỸ NĂNG</h1>
+            <div class="row d-flex">
+                <div class="col-md-4 d-flex mb-5" th:each="job : ${allJobs}">
                     <div class="job-card border p-3 rounded-3" style="width: 300px">
                         <h4 th:text="${job.jobName}">Tên công việc</h4>
-                        <p><strong>Vị trí:</strong> <span th:text="${job.jobDesc}">Chưa rõ</span></p>
+                        <p><strong>Mô tả:</strong> <span th:text="${job.jobDesc}"></span></p>
                         <p><strong>Công ty:</strong> <span th:text="${job.company.compName}">Tên công ty</span></p>
-                        <a th:href="@{'/jobs/' + ${job.id}}" class="btn btn-primary btn-apply">Xem chi tiết</a>
+                        <p><strong>Các yêu cầu kỹ năng:</strong>
+                            <span th:each="skill : ${job.skills}" th:text="${skill.skillName}"></span>
+                        </p>
+                        <div class="d-flex justify-content-between pt-2">
+                            <a class="btn btn-primary btn-apply">Xem chi tiết</a>
+                            <a class="btn btn-success btn-apply">Apply now</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </body>
+</div>
+<!-- Đã đăng nhập -->
+<div th:if="${isLoggedIn}">
+    <header style="position: fixed; right: 0; left: 0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid d-flex justify-content-between">
+                <a class="navbar-brand" href="#">Trang chủ</a>
+                <form th:action="@{/user/logout}" method="post">
+                    <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container px-3">
+        <h2 class="py-3">Chào <span th:text="${session.candidate.fullName}"></span>!</h2>
+        <div>
+            <a class="bg-light p-2" th:href="@{/user/candidate-info}">Xem thông tin tài khoản</a>
+        </div>
+        <h4 class="pb-3 text-center">TOP CÔNG VIỆC GỢI Ý CHO BẠN</h4>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center" th:each="job : ${suggestedJobs}">
+                <div class="job-card border p-3 rounded-3" style="width: 300px">
+                    <h4 th:text="${job.jobName}">Tên công việc</h4>
+                    <p><strong>Vị trí:</strong> <span th:text="${job.jobDesc}"></span></p>
+                    <p><strong>Công ty:</strong> <span th:text="${job.company.compName}">Tên công ty</span></p>
+                    <div class="d-flex justify-content-between pt-2">
+                        <a class="btn btn-primary btn-apply">Xem chi tiết</a>
+                        <a class="btn btn-success btn-apply">Apply now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

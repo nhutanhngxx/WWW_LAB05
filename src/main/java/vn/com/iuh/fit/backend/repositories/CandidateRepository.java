@@ -1,4 +1,10 @@
-package vn.com.iuh.fit.backend.models;
+package vn.com.iuh.fit.backend.repositories;
 
-public interface CandidateRepository extends org.springframework.data.jpa.repository.JpaRepository<vn.com.iuh.fit.backend.models.Candidate, java.lang.Long> {
-  }
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import vn.com.iuh.fit.backend.models.Candidate;
+
+@Repository
+public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+    Candidate findByEmail(String email);
+}

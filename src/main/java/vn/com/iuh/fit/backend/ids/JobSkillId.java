@@ -1,4 +1,4 @@
-package vn.com.iuh.fit.backend.models;
+package vn.com.iuh.fit.backend.ids;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
