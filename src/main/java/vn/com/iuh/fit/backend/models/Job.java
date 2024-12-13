@@ -28,7 +28,6 @@ public class Job {
     @OneToMany(mappedBy = "job")
     private List<JobSkill> jobSkills;
 
-    // Thêm
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "job_skill",

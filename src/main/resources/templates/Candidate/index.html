@@ -43,6 +43,88 @@
         background-position: center;
         min-height: 100vh;
     }
+
+    .row.d-flex {
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .job-card {
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 300px;
+    }
+
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .job-card h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.75rem;
+    }
+
+    .job-card p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    .job-card p strong {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .job-card span {
+        display: inline-block;
+        margin-right: 0.5rem;
+        font-size: 0.85rem;
+        background-color: #f1f1f1;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        color: #666;
+    }
+
+    .btn-apply {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        text-transform: uppercase;
+    }
+
+    .btn-apply.btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+    .btn-apply.btn-primary:hover {
+        background-color: #0056b3;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-apply.btn-success {
+        background-color: #28a745;
+        border: none;
+        color: white;
+    }
+
+    .btn-apply.btn-success:hover {
+        background-color: #218838;
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+    }
+
+    .pt-2 {
+        margin-top: 1rem;
+    }
 </style>
 <body>
 <!-- Chưa đăng nhập -->
@@ -75,8 +157,10 @@
     <div class="hero-section">
         <div class="container-fluid d-flex align-items-center" id="backgroundDiv">
             <div class="d-flex flex-column align-items-start text-start px-5" style="width: 60%">
-                <h1 style="font-weight: bold; font-size: 50px" class="">TÌM MỘT CÔNG VIỆC PHÙ HỢP VỚI ĐAM MÊ CỦA BẠN</h1>
-                <p>Cơ hội được lựa chọn kỹ lưỡng để làm việc tại nhà, từ xa, tự do, toàn thời gian, bán thời gian, hợp đồng và thực tập.</p>
+                <h1 style="font-weight: bold; font-size: 50px" class="">TÌM MỘT CÔNG VIỆC PHÙ HỢP VỚI ĐAM MÊ CỦA
+                    BẠN</h1>
+                <p>Cơ hội được lựa chọn kỹ lưỡng để làm việc tại nhà, từ xa, tự do, toàn thời gian, bán thời gian, hợp
+                    đồng và thực tập.</p>
                 <form action="/user/search-results" method="get" class="d-flex gap-2 pt-3 container-fluid p-0 m-0">
                     <input type="text" name="jobName"
                            class="form-control border bg-transparent px-2 py-1 w-50"
@@ -85,20 +169,22 @@
                 </form>
             </div>
         </div>
-        <div class="container px-5 pt-3" style="min-height: 100vh">
+        <div class="container px-2 pt-3" style="min-height: 100vh">
             <h1 class="py-5 text-center fw-bold">TẤT CẢ CÔNG VIỆC CÓ SẴN YÊU CẦU KỸ NĂNG</h1>
             <div class="row d-flex">
                 <div class="col-md-4 d-flex mb-5" th:each="job : ${allJobs}">
-                    <div class="job-card border p-3 rounded-3" style="width: 300px">
-                        <h4 th:text="${job.jobName}">Tên công việc</h4>
-                        <p><strong>Mô tả:</strong> <span th:text="${job.jobDesc}"></span></p>
-                        <p><strong>Công ty:</strong> <span th:text="${job.company.compName}">Tên công ty</span></p>
-                        <p><strong>Các yêu cầu kỹ năng:</strong>
-                            <span th:each="skill : ${job.skills}" th:text="${skill.skillName}"></span>
-                        </p>
-                        <div class="d-flex justify-content-between pt-2">
+                    <div class="job-card border p-3 rounded-3 flex-column justify-content-between" style="width: 300px">
+                        <div class="text-start">
+                            <h4 th:text="${job.jobName}">Tên công việc</h4>
+                            <p><strong>Mô tả:</strong> <span th:text="${job.jobDesc}"></span></p>
+                            <p><strong>Công ty:</strong> <span th:text="${job.company.compName}">Tên công ty</span></p>
+                            <p><strong>Các yêu cầu kỹ năng:</strong>
+                                <span th:each="skill : ${job.skills}" th:text="${skill.skillName}"></span>
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between pt-1">
                             <a class="btn btn-primary btn-apply">Xem chi tiết</a>
-                            <a class="btn btn-success btn-apply">Apply now</a>
+                            <a href="/user/login" class="btn btn-success btn-apply">Apply now</a>
                         </div>
                     </div>
                 </div>

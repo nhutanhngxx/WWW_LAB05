@@ -26,6 +26,10 @@ public class JobService {
         return jobRepository.findByIdIn(skills);
     }
 
+    public Job saveJob(Job job) {
+        return jobRepository.save(job);
+    }
+
     // Lấy danh sách công việc cùng với danh sách kỹ năng của công việc đó
     public List<Job> getAllJobsWithSkills() {
         return jobRepository.findAllJobsWithSkills();

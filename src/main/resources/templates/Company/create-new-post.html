@@ -14,11 +14,69 @@
     }
 </style>
 <body>
-<div class="border p-5 m-4">
-    <h2 class="text-center py-5">TẠO TIN ĐĂNG TUYỂN MỚI</h2>
-    <form method="post">
-
+<div class="p-5 m-4">
+    <h2 class="text-center py-2">TẠO TIN ĐĂNG TUYỂN MỚI</h2>
+    <form method="post" action="/company/job-postings/create-new-post" style="padding: 0 30%">
+        <input type="hidden" name="id" th:value="${session.company.id}">
+        <div class="mb-3">
+            <label for="jobName" class="form-label">Tên công việc</label>
+            <input type="text" class="form-control" id="jobName" name="jobName" required>
+        </div>
+        <div class="mb-3">
+            <label for="jobDesc" class="form-label">Mô tả công việc</label>
+            <textarea class="form-control" id="jobDesc" name="jobDesc" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Yêu cầu kỹ năng</label>
+            <div id="skills-list">
+                <div class="input-group mb-3">
+                    <select class="form-select" name="skills[]">
+                        <option value="" disabled selected>Chọn kỹ năng</option>
+                        <th:block th:each="skill : ${skills}">
+                            <option th:value="${skill.id}" th:text="${skill.skillName}"></option>
+                        </th:block>
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" onclick="addSkill()">Thêm kỹ năng</button>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="newSkill" class="form-label">Hoặc thêm kỹ năng mới</label>
+            <input type="text" class="form-control" id="newSkill" name="newSkill" placeholder="Tên kỹ năng mới">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Tạo tin</button>
     </form>
 </div>
+<script th:inline="javascript">
+    // Lấy dữ liệu kỹ năng từ controller
+    const skills = /*[[${skills}]]*/ [];
+    // In ra mảng kỹ năng
+    console.log(skills);
+
+    // Thêm kỹ năng mới vào mảng
+    function addSkill() {
+        const skillsList = document.getElementById('skills-list');
+        // Thêm option cho select từ dữ liệu kỹ năng
+        let options = `<option value="" disabled selected>Chọn kỹ năng</option>`;
+        skills.forEach(skill => {
+            options += `<option value="${skill.id}">${skill.skillName}</option>`;
+        });
+        // Chèn input group mới vào DOM
+        const newSkillInput = `
+            <div class="input-group mb-2">
+                <select class="form-select" name="skills[]" required>
+                    ${options}
+                </select>
+                <button type="button" class="btn btn-outline-danger" onclick="removeSkill(this)">Xóa</button>
+            </div>
+        `;
+        skillsList.insertAdjacentHTML('beforeend', newSkillInput);
+    }
+
+    function removeSkill(button) {
+        button.closest('.input-group').remove();
+    }
+</script>
+
 </body>
 </html>

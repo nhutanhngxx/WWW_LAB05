@@ -9,14 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import vn.com.iuh.fit.backend.models.Address;
-import vn.com.iuh.fit.backend.models.Candidate;
-import vn.com.iuh.fit.backend.models.Company;
-import vn.com.iuh.fit.backend.models.Job;
-import vn.com.iuh.fit.backend.services.AddressService;
-import vn.com.iuh.fit.backend.services.CandidateService;
-import vn.com.iuh.fit.backend.services.CompanyService;
-import vn.com.iuh.fit.backend.services.JobService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.com.iuh.fit.backend.ids.JobSkillId;
+import vn.com.iuh.fit.backend.models.*;
+import vn.com.iuh.fit.backend.repositories.SkillRepository;
+import vn.com.iuh.fit.backend.services.*;
 
 import java.util.List;
 
@@ -31,6 +28,12 @@ public class CompanyController {
     private AddressService addressService;
     @Autowired
     private CandidateService candidateService;
+    @Autowired
+    private SkillRepository skillRepository;
+    @Autowired
+    private SkillService skillService;
+    @Autowired
+    private JobSkillService jobSkillService;
 
     public CompanyController(CompanyService companyService, JobService jobService, AddressService addressService, CandidateService candidateService) {
         this.companyService = companyService;
@@ -136,14 +139,61 @@ public class CompanyController {
 
     }
 
-    @GetMapping("/job-postings/create-new_post")
+    @GetMapping("/job-postings/create-new-post")
     public String showCreateJobForm(HttpSession session, Model model) {
         Company company = (Company) session.getAttribute("company");
+        List<Skill> skills = skillService.getAll();
         if (company != null) {
             model.addAttribute("company", company);
+            model.addAttribute("skills", skills);
             return "Company/create-new-post";
         }
         return "redirect:/company/index";
+    }
+
+    @PostMapping("/job-postings/create-new-post")
+    public String createJob(
+            @RequestParam("jobName") String jobName,
+            @RequestParam("jobDesc") String jobDesc,
+            @RequestParam(value = "skills[]", required = false) List<Long> skillIds,
+            @RequestParam(value = "newSkill", required = false) String newSkill,
+            HttpSession session,
+            RedirectAttributes redirectAttributes
+    ) {
+        Company company = (Company) session.getAttribute("company");
+        if (company == null) {
+            return "redirect:/company/index";
+        } else {
+            Job job = new Job();
+            job.setJobName(jobName);
+            job.setJobDesc(jobDesc);
+            job.setCompany(company);
+            jobService.saveJob(job);
+
+            if (skillIds != null) {
+                for (Long skillId : skillIds) {
+                    Skill skill = skillRepository.findById(skillId).orElse(null);
+                    JobSkill jobSkill = new JobSkill();
+                    jobSkill.setId(new JobSkillId(job.getId(), skill.getId()));
+                    jobSkill.setJob(job);
+                    jobSkill.setSkill(skill);
+                    jobSkillService.saveJobSkill(jobSkill);
+                }
+            }
+
+            if (newSkill != null && !newSkill.trim().isEmpty()) {
+                Skill skill = new Skill();
+                skill.setSkillName(newSkill);
+                skillService.save(skill);
+                JobSkill jobSkill = new JobSkill();
+                jobSkill.setId(new JobSkillId(job.getId(), skill.getId()));
+                jobSkill.setSkillLevel(Byte.valueOf("1"));
+                jobSkill.setJob(job);
+                jobSkill.setSkill(skill);
+                jobSkillService.saveJobSkill(jobSkill);
+            }
+            return "redirect:/company/job-postings";
+        }
     }
 
     @GetMapping("/search-results")
@@ -156,5 +206,15 @@ public class CompanyController {
             model.addAttribute("jobs", jobs);
         }
         return "Company/job-postings";
+    }
+
+    @PostMapping("/job-postings/create-new_post")
+    public String createJob(Job job, HttpSession session) {
+        Company company = (Company) session.getAttribute("company");
+        if (company != null) {
+            job.setCompany(company);
+            jobService.saveJob(job);
+        }
+        return "redirect:/company/job-postings";
     }
 }

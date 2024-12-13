@@ -12,44 +12,43 @@
 <div class="container my-5 w-50">
     <h2 class="text-center">Thông tin của bạn</h2>
     <form action="/user/update-candidate" method="post" th:object="${candidate}">
-        <input type="hidden" th:field="*{id}"/>
-        <input type="hidden" th:field="*{address.id}"/>
+        <input type="hidden" th:value="*{id}" name="id"/>
         <div class="mb-3">
             <label class="form-label">Họ và tên</label>
-            <input type="text" class="form-control" th:field="*{fullName}" required>
+            <input type="text" class="form-control" th:value="*{fullName}" name="fullName" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" th:field="*{email}" required>
+            <input type="email" class="form-control" th:value="*{email}" name="email" required>
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <div class="mb-3">
                 <label class="form-label">Số điện thoại</label>
-                <input type="tel" class="form-control" th:field="*{phone}" required>
+                <input type="tel" class="form-control" th:value="*{phone}" name="phone" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" th:field="*{dob}" required>
+                <input type="date" class="form-control" th:value="*{dob}" name="dob" required>
             </div>
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <div class="mb-3">
                 <label class="form-label">Số đường/Number</label>
-                <input type="text" class="form-control" th:field="*{address.number}" required>
+                <input type="text" class="form-control" th:value="*{address.number}" name="address.number" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Đường/Street</label>
-                <input type="text" class="form-control" th:field="*{address.street}" required>
+                <input type="text" class="form-control" th:value="*{address.street}" name="address.street" required>
             </div>
         </div>
         <div class="mb-3 d-flex justify-content-between">
             <div class="mb-3">
                 <label class="form-label">Thành phố/City</label>
-                <input type="text" class="form-control" th:field="*{address.city}" required>
+                <input type="text" class="form-control" th:value="*{address.city}" name="address.city" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Quốc gia/Country</label>
-                <input type="text" class="form-control" th:field="*{address.country}" required>
+                <input type="text" class="form-control" th:value="*{address.country}" name="address.country" required>
             </div>
         </div>
         <button type="submit" class="btn btn-primary w-100">Lưu thông tin thay đổi</button>

@@ -13,6 +13,7 @@ import vn.com.iuh.fit.backend.services.AddressService;
 import vn.com.iuh.fit.backend.services.CandidateService;
 import vn.com.iuh.fit.backend.services.JobService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -86,25 +87,22 @@ public class CandidateController {
     }
 
     @PostMapping("/update-candidate")
-    public String updateCandidate(@ModelAttribute("candidate") Candidate candidate) {
-        if (candidate.getId() != null) {
-            Candidate existingCandidate = candidateService.findById(candidate.getId());
-            // Cập nhật các trường thông tin ứng viên
-            existingCandidate.setFullName(candidate.getFullName());
-            existingCandidate.setEmail(candidate.getEmail());
-            existingCandidate.setPhone(candidate.getPhone());
-            existingCandidate.setDob(candidate.getDob());
-            // Kiểm tra và cập nhật Address
-            if (existingCandidate.getAddress() != null) {
-                // Cập nhật các thuộc tính của Address nếu Address đã tồn tại
-                existingCandidate.getAddress().setNumber(candidate.getAddress().getNumber());
-                existingCandidate.getAddress().setStreet(candidate.getAddress().getStreet());
-                existingCandidate.getAddress().setCity(candidate.getAddress().getCity());
-                existingCandidate.getAddress().setCountry(candidate.getAddress().getCountry());
-            } else {
-                existingCandidate.setAddress(candidate.getAddress());
-            }
+    public String updateCandidate(@ModelAttribute Candidate candidate) {
+        Candidate existingCandidate = candidateService.findById(candidate.getId());
+        // Cập nhật các trường thông tin ứng viên
+        existingCandidate.setFullName(candidate.getFullName());
+        existingCandidate.setEmail(candidate.getEmail());
+        existingCandidate.setPhone(candidate.getPhone());
+        existingCandidate.setDob(candidate.getDob());
+        // Kiểm tra và cập nhật Address
+        if (existingCandidate.getAddress() != null) {
+            // Cập nhật các thuộc tính của Address nếu Address đã tồn tại
+            existingCandidate.getAddress().setNumber(candidate.getAddress().getNumber());
+            existingCandidate.getAddress().setStreet(candidate.getAddress().getStreet());
+            existingCandidate.getAddress().setCity(candidate.getAddress().getCity());
+            existingCandidate.getAddress().setCountry(candidate.getAddress().getCountry());
             // Lưu ứng viên đã cập nhật
+            System.out.println(existingCandidate);
             candidateService.save(existingCandidate);
         }
         return "redirect:/user/candidate-info";
