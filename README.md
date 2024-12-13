@@ -35,7 +35,7 @@
 
 ## Một số hình ảnh minh họa
 ### Trang chủ Người dùng
-![Home_Nguoi_dung](https://i.ibb.co/722whsK/Trang-chu-Nguoi-dung.png)
+![Home_Nguoi_dung](https://i.ibb.co/hf4wzmV/Trang-chu-Nguoi-dung.png)
 
 ### Trang chủ Doanh nghiệp
 ![Home_Doanh-nghiep](https://i.ibb.co/jWN1cgD/Trang-chu-Doanh-nghiep.png)
@@ -45,7 +45,7 @@
 
 ### Trang chủ sau khi đăng nhập
 #### Cá nhân
-![Ca_nhan_index](https://i.ibb.co/N6dw1R2/Trang-Nguoi-dung-dang-nhap.png)
+![Ca_nhan_index](https://i.ibb.co/pyWBdRW/Trang-Nguoi-dung-dang-nhap.png)
 #### Doanh nghiệp
 ![Nguoi_dung_index](https://i.ibb.co/9rk9kVW/Trang-Doanh-nghiep-Dang-nhap.png)
 
@@ -57,4 +57,7 @@
 
 ### Trang quản lý tin đăng
 ![Quan_ly_tin_dang](https://i.ibb.co/5rW1XZw/Danh-sach-tin-dang-tuyen.png)
+
+### Tìm kiếm công việc
+![Quan_ly_tin_dang](https://i.ibb.co/PTCSzgf/Ket-qua-tim-kiem.png)
 
