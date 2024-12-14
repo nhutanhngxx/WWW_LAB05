@@ -133,7 +133,7 @@
     <header style="position: fixed; right: 0; left: 0; background: transparent">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/user/index}">Trang chủ</a>
+                <a class="navbar-brand fw-bold text-primary" th:href="@{/user/index}" style="font-size: 30px">JobCare</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -172,7 +172,7 @@
         </div>
         <div class="container px-2 pt-3" style="min-height: 100vh">
             <h1 class="py-5 text-center fw-bold">TẤT CẢ CÔNG VIỆC CÓ SẴN YÊU CẦU KỸ NĂNG</h1>
-            <div class="row d-flex">
+            <div class="d-flex flex-lg-wrap">
                 <div class="col-md-4 d-flex mb-5" th:each="job : ${allJobs}">
                     <div class="job-card border p-3 rounded-3 flex-column justify-content-between" style="width: 300px">
                         <div class="text-start">
@@ -196,29 +196,65 @@
 <!-- Đã đăng nhập -->
 <div th:if="${isLoggedIn}">
     <header style="position: fixed; right: 0; left: 0">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light align-items-center">
             <div class="container-fluid d-flex justify-content-between">
-                <a class="navbar-brand" href="#">Trang chủ</a>
-                <form th:action="@{/user/logout}" method="post">
-                    <button type="submit" class="btn btn-outline-danger">Đăng xuất</button>
-                </form>
+                <a class="navbar-brand fw-bold text-primary" href="#" style="font-size: 30px">JobCare</a>
+                <div class="d-flex justify-content-around" style="width: 50%">
+                    <a class="d-flex flex-column align-items-center" href="#">
+                        <i class="bi bi-house fs-5"></i>
+                        <span style="font-size: 10px">Trang chủ</span>
+                    </a>
+                    <a href="#" class="d-flex flex-column align-items-center">
+                        <i class="bi bi-backpack fs-5"></i>
+                        <span style="font-size: 10px">Công việc</span>
+                    </a>
+                    <a href="#" class="d-flex flex-column align-items-center" onclick="toggleSearch()" id="search-icon">
+                        <i class="bi bi-search fs-5"></i>
+                        <span style="font-size: 10px">Tìm kiếm</span>
+                    </a>
+                    <div id="search-box" class="d-none">
+                        <form method="get" action="/user/search-results" class="d-flex">
+                            <input type="text" name="jobName" class="form-control me-2"
+                                   placeholder="Nhập từ khóa tìm kiếm">
+                            <button type="submit" class="me-2">
+                                <i class="bi bi-search fs-4"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleSearch()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <a href="#" class="d-flex flex-column align-items-center">
+                        <i class="bi bi-chat-dots fs-5"></i>
+                        <span style="font-size: 10px">Trò chuyện</span>
+                    </a>
+                    <a href="#" class="d-flex flex-column align-items-center">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span style="font-size: 10px">Thông báo</span>
+                    </a>
+                </div>
+                <div class="d-flex gap-3">
+                    <div>
+                        <a th:href="@{/user/candidate-info}">
+                            <i class="bi bi-person-circle fs-3"></i>
+                        </a>
+                    </div>
+                    <form th:action="@{/user/logout}" method="post">
+                        <button type="submit" class="btn">Đăng xuất</button>
+                    </form>
+                </div>
             </div>
         </nav>
     </header>
     <div class="container px-3">
-        <h2 class="py-3">Chào <span th:text="${session.candidate.fullName}"></span>!</h2>
-        <div class="d-flex justify-content-between pb-4">
-            <div class="d-flex align-items-center gap-3">
-                <i class="bi bi-person-circle fs-3"></i>
-                <a class="" th:href="@{/user/candidate-info}">Xem thông tin tài khoản</a>
-            </div>
+        <div class="pb-4 d-flex justify-content-end" style="padding-top: 80px">
             <form method="get" action="/user/search-results" class="d-flex align-items-center gap-3 w-50">
                 <input type="text" class="form-control" placeholder="Nhập tên công việc cần tìm" name="jobName">
                 <button type="submit" class="btn btn-primary">Tìm</button>
             </form>
         </div>
         <h4 class="pb-3 text-center">TOP CÔNG VIỆC GỢI Ý CHO BẠN</h4>
-        <div class="row d-flex justify-content-center">
+        <div class="container-fluid d-flex justify-content-center">
             <div class="col-md-4 d-flex justify-content-center" th:each="job : ${suggestedJobs}">
                 <div class="job-card border p-3 rounded-3" style="width: 300px">
                     <h4 th:text="${job.jobName}">Tên công việc</h4>
@@ -233,5 +269,21 @@
         </div>
     </div>
 </div>
+<script>
+    function toggleSearch() {
+        const searchIcon = document.getElementById("search-icon");
+        const searchBox = document.getElementById("search-box");
+
+        if (searchBox.classList.contains("d-none")) {
+            searchBox.classList.remove("d-none");
+            searchBox.classList.add("d-block");
+            searchIcon.classList.add("d-none"); // Ẩn icon search
+        } else {
+            searchBox.classList.remove("d-block");
+            searchBox.classList.add("d-none");
+            searchIcon.classList.remove("d-none"); // Hiện icon search
+        }
+    }
+</script>
 </body>
 </html>

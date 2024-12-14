@@ -14,6 +14,7 @@ import vn.com.iuh.fit.backend.services.CandidateService;
 import vn.com.iuh.fit.backend.services.JobService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -45,11 +46,16 @@ public class CandidateController {
     }
 
     @GetMapping("/search-results")
-    public String showSearchJobPage(@RequestParam String jobName, Model model) {
+    public String showSearchJobPage(@RequestParam String jobName, Model model, HttpSession session) {
         List<Job> jobs = jobService.findAllJobsWithSkillsByName(jobName);
+        Candidate candidate = (Candidate) session.getAttribute("candidate");
         if (jobs.isEmpty()) {
+            model.addAttribute("jobName", jobName);
+            model.addAttribute("searchJobs", jobs);
+            model.addAttribute("candidate", candidate);
             model.addAttribute("error", "Không tìm thấy công việc phù hợp");
         } else {
+            model.addAttribute("candidate", candidate);
             model.addAttribute("jobName", jobName);
             model.addAttribute("searchJobs", jobs);
         }

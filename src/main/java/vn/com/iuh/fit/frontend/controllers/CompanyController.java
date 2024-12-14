@@ -111,6 +111,8 @@ public class CompanyController {
     @RequestMapping("/company-info")
     public String showCompanyInfo(HttpSession session, Model model) {
         Company company = (Company) session.getAttribute("company");
+        Address address = addressService.getAddressById(company.getAddress().getId());
+        company.setAddress(address);
         if (company != null) {
             model.addAttribute("company", company);
             return "Company/company-info";

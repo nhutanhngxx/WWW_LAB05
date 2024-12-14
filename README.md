@@ -33,30 +33,39 @@
 5. Chạy project và truy cập vào đường dẫn `http://localhost:8080/list` hoặc `http://localhost:8080/candidates`
 6. Bắt đầu sử dụng các tính năng của ứng dụng
 
-## Một số hình ảnh minh họa
+## Một số hình ảnh minh họaS
 ### Trang chủ Người dùng
-![Home_Nguoi_dung](https://i.ibb.co/hf4wzmV/Trang-chu-Nguoi-dung.png)
+![Home_Nguoi_dung](https://i.ibb.co/mhdShRh/Trang-chu-Nguoi-dung.png)
 
 ### Trang chủ Doanh nghiệp
-![Home_Doanh-nghiep](https://i.ibb.co/jWN1cgD/Trang-chu-Doanh-nghiep.png)
+![Home_Doanh-nghiep](https://i.ibb.co/fVgtM33/Trang-chu-Doanh-nghiep.png)
 
 ### Trang Đăng nhập sau chọn loại người dùng
-![Login_Page](https://i.ibb.co/1ZFRDqw/Man-hinh-login.png)
+![Login_Page](https://i.ibb.co/G3V8FWr/Man-hinh-login.png)
+
+### Trang Đăng ký
+#### Người dùng
+![Register_Page](https://i.ibb.co/7K03VLX/Man-hinh-Dang-ky-Ca-nhan.png)
+#### Doanh nghiệp
+![Register_Page](https://i.ibb.co/Yhh4hF3/Man-hinh-Dang-ky-Doanh-nghiep.png)
 
 ### Trang chủ sau khi đăng nhập
 #### Cá nhân
-![Ca_nhan_index](https://i.ibb.co/pyWBdRW/Trang-Nguoi-dung-dang-nhap.png)
+![Ca_nhan_index](https://i.ibb.co/kDhbyDS/Dashbroad-Nguoi-dung.png)
 #### Doanh nghiệp
-![Nguoi_dung_index](https://i.ibb.co/9rk9kVW/Trang-Doanh-nghiep-Dang-nhap.png)
+![Nguoi_dung_index](https://i.ibb.co/DWyMY58/Dashbroad-Doanh-nghiep.png)
 
 ### Trang thông tin
 #### Cá nhân
-![Ca_nhan_info](https://i.ibb.co/1MVwtb8/Trang-thong-tin-ca-nhan-nguoi-dung.png)
+![Ca_nhan_info](https://i.ibb.co/x7kDzK2/Trang-thong-tin-ca-nhan-nguoi-dung.png)
 #### Doanh nghiệp
-![Nguoi_dung_info](https://i.ibb.co/rF7rm7R/Trang-thong-tin-ca-nhan-Doanh-nghiep.png)
+![Nguoi_dung_info](https://i.ibb.co/cN72Yr3/Trang-thong-tin-ca-nhan-Doanh-nghiep.png)
 
 ### Trang quản lý tin đăng
-![Quan_ly_tin_dang](https://i.ibb.co/5rW1XZw/Danh-sach-tin-dang-tuyen.png)
+#### Quản lý tin đăng
+![Quan_ly_tin_dang](https://i.ibb.co/jLYsYbW/Danh-sach-tin-dang-tuyen.png)
+#### Thêm tin đăng
+![Them_tin_dang](https://i.ibb.co/PWh7bP5/Posting.png)
 
 ### Tìm kiếm công việc
 ![Quan_ly_tin_dang](https://i.ibb.co/PTCSzgf/Ket-qua-tim-kiem.png)
