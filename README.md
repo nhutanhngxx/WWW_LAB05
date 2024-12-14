@@ -2,6 +2,7 @@
 ## Sinh viên thực hiện
 - **Họ và tên:** Nguyễn Nhựt Anh
 - **MSSV:** 21139431
+- https://nhutanhngxx.my.canva.site/dev
 ## Nội dung trong bài tập
 - Tạo các entities
 - Viết các repositories interface
@@ -15,7 +16,7 @@
 - **Version control:** `Git, GitHub`
 - **Documentation:** `Markdown`
 - **Others:** `Lombok, MapStruct`
-## Tính năng
+## Tính năng hiện thực dựa trên Định hướng trước đó
 - Đăng nhập phân quyền bằng `RequestMapping`
 	+ Candidate đăng nhập: Các Job gợi ý cho Candidate
 	+ Company đăng nhập: Quản lý Tin đăng ứng tuyển
